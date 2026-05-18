@@ -1,7 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Button } from "$lib/components/ui/button/index.js";
+import ThemeSwitcher from "$lib/components/ThemeSwitcher.svelte";
 ---
 
 <Layout>
-  <div>hello 1</div>
+  <div class="min-h-screen p-8">
+    <div class="flex justify-end mb-8">
+      <ThemeSwitcher client:load />
+    </div>
+    <div class="text-foreground">
+      <h1 class="text-4xl font-bold mb-4">Test</h1>
+      <Button>Test Button</Button>
+    </div>
+  </div>
 </Layout>
