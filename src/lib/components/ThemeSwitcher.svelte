@@ -1,25 +1,25 @@
 <script lang="ts">
-	import { Moon, Sun, Zap } from '@lucide/svelte';
-	import { Button } from '$lib/components/ui/button';
-	import { themeStore } from '$lib/stores/theme.svelte';
+  import { themeStore } from "$lib/stores/theme.svelte";
 
-	function toggleTheme() {
-		themeStore.toggle();
-	}
+  function toggleTheme() {
+    themeStore.toggle();
+  }
 </script>
 
-<Button
-	variant="outline"
-	size="icon"
-	onclick={toggleTheme}
-	aria-label="Toggle theme"
-	class="transition-all"
+<button
+  onclick={toggleTheme}
+  aria-label="Toggle theme"
+  class="fixed bottom-4 right-4 z-50 cursor-pointer transition-transform hover:scale-110"
 >
-	{#if themeStore.theme === 'light'}
-		<Sun class="h-[1.2rem] w-[1.2rem] text-yellow-500" />
-	{:else if themeStore.theme === 'dark'}
-		<Moon class="h-[1.2rem] w-[1.2rem] text-blue-400" />
-	{:else}
-		<Zap class="h-[1.2rem] w-[1.2rem] text-pink-500 animate-pulse" />
-	{/if}
-</Button>
+  <div class="relative h-10 w-[194px]">
+    <div
+      class="absolute top-[4px] left-[1px] h-full w-full bg-black blur-[2px] opacity-100"
+      style="-webkit-mask: url('/21psychos.svg') no-repeat center / contain; mask: url('/21psychos.svg') no-repeat center / contain;"
+    ></div>
+
+    <div
+      class="absolute inset-0 h-full w-full bg-primary"
+      style="-webkit-mask: url('/21psychos.svg') no-repeat center / contain; mask: url('/21psychos.svg') no-repeat center / contain;"
+    ></div>
+  </div>
+</button>
