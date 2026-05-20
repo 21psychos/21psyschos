@@ -42,7 +42,7 @@
       id: "know-no",
       heading: "know no",
       content:
-        "We say no more than we say yes. No to projects that bore us. No to clients who don't get it. No to compromises that water down the vision. Saying no is how we protect what matters.",
+        "We say no more than we say yes.No to projects that bore us. No to clients who don't get it. No to compromises that water down the vision. Saying no is how we protect what matters.",
     },
     {
       id: "why-the-name",
