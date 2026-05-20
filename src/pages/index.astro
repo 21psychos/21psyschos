@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import ThemeSwitcher from "$lib/components/ThemeSwitcher.svelte";
 import Body from "src/components/body/Body.svelte";
+import Projects from "$lib/components/Projects.svelte";
 ---
 
 <Layout>
@@ -10,17 +11,11 @@ import Body from "src/components/body/Body.svelte";
       <Body client:load />
     </main>
 
-    <div class="fixed bottom-4 right-4 z-50">
+    <div
+      class="fixed bottom-4 left-4 right-4 z-50 flex items-center justify-between"
+    >
+      <Projects client:load />
       <ThemeSwitcher client:load />
-    </div>
-
-    <div class="fixed bottom-4 left-4 z-50 flex items-center gap-10">
-      <a href="https://supatail.co.za/" target="_blank" rel="noopener noreferrer">
-        <img src="/Vector.svg" alt="Supa Tail" class="h-10 w-auto" />
-      </a>
-      <a href="https://eliteentrepreneurschool.co.za" target="_blank" rel="noopener noreferrer">
-        <img src="/ees-white.svg" alt="EES" class="h-10 w-auto" />
-      </a>
     </div>
   </div>
 </Layout>

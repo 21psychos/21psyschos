@@ -9,7 +9,7 @@
 <button
   onclick={toggleTheme}
   aria-label="Toggle theme"
-  class="fixed bottom-4 right-4 z-50 cursor-pointer transition-transform hover:scale-110"
+  class="cursor-pointer transition-transform hover:scale-110"
 >
   <div class="relative h-10 w-[194px]">
     <div
