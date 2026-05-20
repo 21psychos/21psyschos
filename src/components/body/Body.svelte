@@ -81,7 +81,7 @@
     {#each sections as section, i}
       <button
         onclick={() => selectSection(section.id)}
-        class="text-right text-2xl md:text-3xl font-bold cursor-pointer transition-all duration-200 hover:scale-[1.02] origin-right leading-[100px]"
+        class="text-right text-2xl md:text-3xl font-bold cursor-pointer transition-all duration-200 hover:scale-[1.02] origin-right leading-[100px] font-heading"
         class:text-primary={activeId === section.id}
         style="opacity: {activeId === null
           ? getOpacity(i)
