@@ -9,15 +9,18 @@ import "../styles/global.css";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#44ACFF" />
     <meta name="generator" content={Astro.generator} />
     <title>Astro Basics</title>
     <script is:inline>
       // Initialize theme before page renders to prevent flash
       (function() {
         const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = stored || (prefersDark ? 'dark' : 'light');
+        const theme = stored || 'light';
         document.documentElement.classList.add(theme);
+        var colors = { light: '#44ACFF', red: '#D92243', neon: '#1a0533' };
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.content = colors[theme] || colors.light;
       })();
     </script>
   </head>
