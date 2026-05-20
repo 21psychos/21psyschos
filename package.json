@@ -12,6 +12,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
+    "@fontsource-variable/work-sans": "^5.2.8",
     "astro": "^6.3.3",
     "svelte": "^5.55.8",
     "tailwindcss": "^4.3.0",
@@ -20,8 +22,10 @@
   "devDependencies": {
     "@astrojs/svelte": "latest",
     "@fontsource-variable/inter": "^5.2.8",
+    "@internationalized/date": "^3.12.1",
     "@lucide/svelte": "^1.16.0",
     "@tailwindcss/vite": "latest",
+    "bits-ui": "^2.18.1",
     "clsx": "^2.1.1",
     "shadcn-svelte": "^1.2.7",
     "tailwind-merge": "^3.6.0",

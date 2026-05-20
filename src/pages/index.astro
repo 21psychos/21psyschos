@@ -1,17 +1,21 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Button } from "$lib/components/ui/button/index.js";
 import ThemeSwitcher from "$lib/components/ThemeSwitcher.svelte";
+import Body from "src/components/body/Body.svelte";
+import Projects from "$lib/components/Projects.svelte";
 ---
 
 <Layout>
-  <div class="min-h-screen p-8">
-    <div class="flex justify-end mb-8">
+  <div class="min-h-screen p-8 flex items-center justify-center">
+    <main class="w-full max-w-5xl">
+      <Body client:load />
+    </main>
+
+    <div
+      class="fixed bottom-4 left-4 right-4 z-50 flex items-center justify-between"
+    >
+      <Projects client:load />
       <ThemeSwitcher client:load />
-    </div>
-    <div class="text-foreground">
-      <h1 class="text-4xl font-bold mb-4">Test</h1>
-      <Button>Test Button</Button>
     </div>
   </div>
 </Layout>
