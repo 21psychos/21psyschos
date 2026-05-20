@@ -5,8 +5,7 @@
 
 <div class="md:hidden">
   <Popover.Root>
-    <Popover.Trigger class="text-sm font-medium underline underline-offset-4"
-    ></Popover.Trigger>
+    <Popover.Trigger class="text-sm font-medium underline underline-offset-4">Projects</Popover.Trigger>
     <Popover.Content class="flex flex-col gap-3 p-4">
       <a
         href="https://supatail.co.za/"
