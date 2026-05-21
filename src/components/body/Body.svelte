@@ -56,6 +56,11 @@
 
   function selectSection(id: string) {
     activeId = activeId === id ? null : id;
+
+
+    if (activeId && window.innerWidth < 768) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   function getOpacity(index: number): number {
