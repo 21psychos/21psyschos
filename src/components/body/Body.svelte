@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { sectionStore } from "$lib/stores/section.svelte";
+
   type Section = {
     id: string;
     heading: string;
@@ -52,12 +54,12 @@
     },
   ];
 
-  let activeId = $state<string | null>(null);
+  let activeId = $derived(sectionStore.activeId);
 
   function selectSection(id: string) {
-    activeId = activeId === id ? null : id;
+    sectionStore.select(id);
 
-    if (activeId && window.innerWidth < 768) {
+    if (sectionStore.activeId && window.innerWidth < 768) {
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }, 0);
