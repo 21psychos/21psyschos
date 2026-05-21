@@ -58,7 +58,6 @@
     activeId = activeId === id ? null : id;
 
     if (activeId && window.innerWidth < 768) {
-      // Use setTimeout to ensure the DOM has updated before scrolling
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }, 0);
