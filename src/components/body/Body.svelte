@@ -8,9 +8,15 @@
     sectionStore.select(id);
 
     if (sectionStore.activeId && window.innerWidth < 768) {
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }, 0);
+      // wait for the bubble to render, then scroll it into view
+      requestAnimationFrame(() => {
+        const bubble = document.querySelector(".cs-bubble");
+        if (bubble) {
+          bubble.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
     }
   }
 
