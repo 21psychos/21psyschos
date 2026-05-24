@@ -1,17 +1,102 @@
 ---
 import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  /** Path to the OG image relative to the site root, e.g. "/og-image.png" */
+  image?: string;
+  /** Override the canonical URL (defaults to current page URL) */
+  canonical?: string;
+  /** "website" | "article" | etc. */
+  ogType?: string;
+  /** Set true to keep search engines out (e.g. drafts/staging) */
+  noindex?: boolean;
+}
+
+const {
+  title = "21psychos — modern tech, built different",
+  description = "21psychos is a crew of misfits building modern software. No suits, no buzzwords — just raw energy and tech that ships.",
+  image = "/21psychos.svg",
+  canonical,
+  ogType = "website",
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://21psychos.com");
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, siteUrl);
+const ogImageURL = new URL(image, siteUrl);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "21psychos",
+  url: siteUrl.toString(),
+  logo: new URL("/21psychos.svg", siteUrl).toString(),
+  description,
+  sameAs: [],
+};
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Primary meta -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="21psychos, software studio, modern tech, web development, creative engineering, AI, indie tech"
+    />
+    <meta name="author" content="21psychos" />
+    <meta
+      name="robots"
+      content={noindex ? "noindex, nofollow" : "index, follow"}
+    />
+    <link rel="canonical" href={canonicalURL.toString()} />
+
+    <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Theme -->
     <meta name="theme-color" content="#44ACFF" />
     <meta name="generator" content={Astro.generator} />
-    <title>21psychos</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="21psychos" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.toString()} />
+    <meta property="og:image" content={ogImageURL.toString()} />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL.toString()} />
+    <meta name="twitter:image:alt" content={title} />
+
+    <!-- Sitemap (works once @astrojs/sitemap is installed) -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Structured data -->
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+    />
+
+    <!-- Theme bootstrap (no FOUC) -->
     <script is:inline>
       (function () {
         const stored = localStorage.getItem("theme");
