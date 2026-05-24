@@ -23,7 +23,7 @@ const {
   noindex = false,
 } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL("https://21psychos.com");
+const siteUrl = Astro.site ?? new URL("https://www.21psychos.com");
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, siteUrl);
 const ogImageURL = new URL(image, siteUrl);
 
