@@ -11,6 +11,52 @@
   let copied = $state(false);
   let copyTimeout: ReturnType<typeof setTimeout> | null = null;
 
+  // ---------- eye tracking ----------
+  let svgEl = $state<SVGSVGElement | null>(null);
+  // start centered in the sockets so SSR markup is stable
+  let mouseVX = $state(120);
+  let mouseVY = $state(118);
+
+  // socket centers and max pupil offsets (kept inside the black ellipses)
+  const SOCKETS = [
+    { cx: 84, cy: 118, maxX: 14, maxY: 18 },
+    { cx: 156, cy: 118, maxX: 14, maxY: 18 },
+  ] as const;
+
+  function pupilPos(socket: (typeof SOCKETS)[number]) {
+    const dx = mouseVX - socket.cx;
+    const dy = mouseVY - socket.cy;
+    const dist = Math.hypot(dx, dy);
+    if (dist === 0) return { x: socket.cx, y: socket.cy };
+    const angle = Math.atan2(dy, dx);
+    // ramp up movement over ~140 viewbox units, then saturate
+    const factor = Math.min(1, dist / 140);
+    return {
+      x: socket.cx + Math.cos(angle) * socket.maxX * factor,
+      y: socket.cy + Math.sin(angle) * socket.maxY * factor,
+    };
+  }
+
+  const leftPupil = $derived(pupilPos(SOCKETS[0]));
+  const rightPupil = $derived(pupilPos(SOCKETS[1]));
+
+  $effect(() => {
+    if (typeof window === "undefined") return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    function onMove(e: MouseEvent) {
+      if (!svgEl) return;
+      const rect = svgEl.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+      mouseVX = ((e.clientX - rect.left) / rect.width) * 240;
+      mouseVY = ((e.clientY - rect.top) / rect.height) * 290;
+    }
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  });
+
   function toggle() {
     unleashed = !unleashed;
   }
@@ -87,6 +133,7 @@
         viewBox="0 0 240 290"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
+        bind:this={svgEl}
       >
         <!-- ground shadow -->
         <ellipse class="cs-shadow" cx="120" cy="278" rx="78" ry="6" />
@@ -145,9 +192,9 @@
 
           <!-- ====== IDLE FACE ====== -->
           <g class="cs-idle">
-            <!-- sleepy dot pupils -->
-            <circle cx="84" cy="120" r="4" fill="#fff" />
-            <circle cx="156" cy="120" r="4" fill="#fff" />
+            <!-- pupils that follow the cursor -->
+            <circle class="cs-pupil" cx={leftPupil.x} cy={leftPupil.y} r="6" fill="#fff" />
+            <circle class="cs-pupil" cx={rightPupil.x} cy={rightPupil.y} r="6" fill="#fff" />
             <!-- closed zigzag teeth -->
             <path
               d="M 80 218 L 90 226 L 100 218 L 110 226 L 120 218 L 130 226 L 140 218 L 150 226 L 160 218"
@@ -429,6 +476,11 @@
   .cs-wrap.active .cs-idle { display: none; }
   .cs-wrap.active .cs-rage { display: inline; }
 
+  /* pupils glide toward the cursor */
+  .cs-pupil {
+    transition: cx 0.12s ease-out, cy 0.12s ease-out;
+  }
+
   /* X-eyes look */
   .cs-x line {
     stroke: #fff;
@@ -604,8 +656,10 @@
     .cs-header-text::before,
     .cs-header-text::after,
     .cs-bubble,
-    .cs-thought-dot {
+    .cs-thought-dot,
+    .cs-pupil {
       animation: none !important;
+      transition: none !important;
     }
   }
 </style>
