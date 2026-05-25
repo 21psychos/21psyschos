@@ -40,7 +40,7 @@
             : getOpacity(i) * 0.6};"
       >
         {#if section.strikePrefix}<span
-            class="text-muted-foreground line-through"
+            class="text-muted line-through"
             >{section.strikePrefix}</span
           >{" "}{/if}{section.heading}
       </button>

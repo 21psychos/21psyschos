@@ -23,7 +23,7 @@ export const sections: Section[] = [
     id: "different",
     heading: "errr no, we're just different",
     content:
-      "We don't fit into a box and we stopped trying. We're not an agency, not a studio, not a consultancy. We're 21 psychos who happen to make incredible things together.",
+      "We don't fit into a box and we stopped trying. We're not an agency, not a studio, not a consultancy. We're 21psychos who happen to make incredible things together.",
   },
   {
     id: "25-hours",
@@ -49,4 +49,11 @@ export const sections: Section[] = [
     content:
       "Because you have to be a little crazy to do what we do. 21 people who think differently, act differently, and build differently. Psychos in the best possible way.",
   },
+  {
+    id: "get-in-touch",
+    heading: "get in touch",
+    content:
+      "If you're ready to build something that matters, something that breaks the mold, something that makes people stop and stare — we want to hear from you. No fluff, no nonsense. Just real talk.",
+  }
+  
 ];
