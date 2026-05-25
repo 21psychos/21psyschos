@@ -1,4 +1,4 @@
-type Theme = "light" | "red" | "prowel" | 'green';
+type Theme = "light" | "red" | "prowel" | "green" | "beige";
 
 class ThemeStore {
   theme = $state<Theme>("light");
@@ -18,6 +18,8 @@ class ThemeStore {
       this.theme = "prowel";
     } else if (this.theme === "prowel") {
       this.theme = "green";
+    } else if (this.theme === "green") {
+      this.theme = "beige";
     } else {
       this.theme = "light";
     }
@@ -37,7 +39,7 @@ class ThemeStore {
 
   private applyTheme() {
     if (typeof document !== "undefined") {
-      document.documentElement.classList.remove("light", "red", "prowel" , "green");
+      document.documentElement.classList.remove("light", "red", "prowel", "green", "beige");
       document.documentElement.classList.add(this.theme);
     }
   }
