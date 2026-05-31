@@ -13,18 +13,14 @@
         rel="noopener noreferrer"
         class="flex items-center gap-2"
       >
-        <img src="/Vector.svg" alt="Supa Tail" class="h-6 w-auto" />
+        <span
+          aria-label="Supa Tail"
+          role="img"
+          class="block h-6 w-6 bg-foreground"
+          style="mask: url('/Vector.svg') no-repeat center / contain; -webkit-mask: url('/Vector.svg') no-repeat center / contain;"
+        ></span>
         <span>Supa Tail</span>
       </a>
-      <!-- <a
-        href="https://eliteentrepreneurschool.co.za"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex items-center gap-2"
-      >
-        <img src="/ees-white.svg" alt="EES" class="h-6 w-auto" />
-        <span>Elite Entrepreneur School</span>
-      </a> -->
     </Popover.Content>
   </Popover.Root>
 </div>
@@ -37,28 +33,19 @@
           href="https://supatail.co.za/"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Supa Tail"
         >
-          <img src="/Vector.svg" alt="Supa Tail" class="h-10 w-auto" />
+          <span
+            aria-label="Supa Tail"
+            role="img"
+            class="block h-10 w-10 bg-foreground"
+            style="mask: url('/Vector.svg') no-repeat center / contain; -webkit-mask: url('/Vector.svg') no-repeat center / contain;"
+          ></span>
         </a>
       </Tooltip.Trigger>
       <Tooltip.Content>
         <p>Supa Tail</p>
       </Tooltip.Content>
     </Tooltip.Root>
-
-    <!-- <Tooltip.Root>
-      <Tooltip.Trigger asChild>
-        <a
-          href="https://eliteentrepreneurschool.co.za"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="/ees-white.svg" alt="EES" class="h-10 w-auto" />
-        </a>
-      </Tooltip.Trigger>
-      <Tooltip.Content>
-        <p>Elite Entrepreneur School</p>
-      </Tooltip.Content>
-    </Tooltip.Root> -->
   </Tooltip.Provider>
 </div>
