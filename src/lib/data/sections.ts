@@ -16,7 +16,7 @@ export const sections: Section[] = [
     id: "what-we-do",
     heading: "what we do?",
     content:
-      "At our core, we're a software company. We build private projects for clients who need something done right, from web platforms to bespoke tools. Alongside the client work, we ship our own apps too. Ideas we believe in, built on our own terms.(check the bottom left)",
+      "At our core, we're a software company. We build private projects for clients who need something done right, from web platforms to bespoke tools. Alongside the client work, we ship our own apps too. Ideas we believe in, built on our own terms.",
   },
   {
     id: "modern-tech",
