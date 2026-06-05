@@ -7,12 +7,6 @@ export type Section = {
 
 export const sections: Section[] = [
   {
-    id: "different",
-    heading: "errr we're just different",
-    content:
-      "We don't fit into a box and we stopped trying. We're not an agency, not a studio, not a consultancy. We're 21psychos who happen to make incredible things together.",
-  },
-  {
     id: "what-we-do",
     heading: "what we do?",
     content:
@@ -29,6 +23,12 @@ export const sections: Section[] = [
     heading: "25 hours (corny we know...)",
     content:
       "We work when inspiration hits. Sometimes that's 3am on a Tuesday. Sometimes it's a 48-hour sprint fueled by nothing but curiosity. The clock doesn't own us — we own the clock.",
+  },
+        {
+    id: "different",
+    heading: "errr we're just different",
+    content:
+      "We don't fit into a box and we stopped trying. We're not an agency, not a studio, not a consultancy. We're 21psychos who happen to make incredible things together.",
   },
   {
     id: "about-ai",
