@@ -10,6 +10,16 @@
   let unleashed = $state(false);
   let copied = $state(false);
   let copyTimeout: ReturnType<typeof setTimeout> | null = null;
+  let showPrompt = $state(false);
+  let currentPromptIndex = $state(0);
+
+  const PROMPT_MESSAGES = [
+    "Click me if you wanna see my go psycho! 💀",
+    "My Reaction when gas prices go down(Click Me)! 👀",
+    "Me when someone says pineapple belongs on pizza (Click)! 😈",
+    "POV: You just remembered an embarrassing moment (Tap me)! ⚡",
+    "When the WiFi goes out for 5 seconds (Click to relate)! 🔥"
+  ];
 
   // ---------- eye tracking ----------
   let svgEl = $state<SVGSVGElement | null>(null);
@@ -60,6 +70,30 @@
   function toggle() {
     unleashed = !unleashed;
   }
+
+  // Random prompt appearance
+  $effect(() => {
+    if (typeof window === "undefined" || unleashed) return;
+
+    function scheduleNextPrompt() {
+      // Show prompt randomly between 8-15 seconds
+      const delay = Math.random() * 7000 + 8000;
+      const timeout = setTimeout(() => {
+        // Pick a random message
+        currentPromptIndex = Math.floor(Math.random() * PROMPT_MESSAGES.length);
+        showPrompt = true;
+        // Hide after 3 seconds
+        setTimeout(() => {
+          showPrompt = false;
+          scheduleNextPrompt();
+        }, 3000);
+      }, delay);
+
+      return () => clearTimeout(timeout);
+    }
+
+    return scheduleNextPrompt();
+  });
 
   async function copyEmail() {
     try {
@@ -262,6 +296,13 @@
       <span class="cs-spark cs-spark-4">✦</span>
       <span class="cs-spark cs-spark-5">@</span>
       <span class="cs-spark cs-spark-6">#</span>
+
+      <!-- hover prompt -->
+      {#if showPrompt && !unleashed}
+        <div class="cs-prompt" role="tooltip">
+          {PROMPT_MESSAGES[currentPromptIndex]}
+        </div>
+      {/if}
     </div>
   </button>
 </div>
@@ -524,6 +565,50 @@
     will-change: transform, opacity;
   }
 
+  /* ============ HOVER PROMPT ============ */
+  .cs-prompt {
+    position: absolute;
+    top: -3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #000;
+    border: 3px solid #000;
+    border-radius: 16px;
+    padding: 0.6rem 1rem;
+    font-family: var(--font-heading, 'Plus Jakarta Sans Variable', system-ui, sans-serif);
+    font-weight: 700;
+    font-size: clamp(0.85rem, calc(var(--cs-size) * 0.045), 1rem);
+    white-space: nowrap;
+    box-shadow: 4px 4px 0 #000;
+    pointer-events: none;
+    z-index: 10;
+    animation: cs-prompt-float 2s ease-in-out infinite, cs-prompt-appear 0.3s ease-out both;
+  }
+
+  @media (max-width: 767px) {
+    .cs-prompt {
+      white-space: normal;
+      max-width: min(85vw, 280px);
+      text-align: center;
+      line-height: 1.3;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.8rem;
+      top: -4rem;
+    }
+  }
+
+  .cs-prompt::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: var(--accent);
+    filter: drop-shadow(0 3px 0 #000);
+  }
+
   .cs-wrap.active .cs-spark-1 {
     --tx: calc(var(--cs-size) * -0.45);
     --ty: calc(var(--cs-size) * -0.5);
@@ -645,6 +730,26 @@
     75% { transform: translate(1px, 1px); }
   }
 
+  @keyframes cs-prompt-appear {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-10px) scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+  }
+
+  @keyframes cs-prompt-float {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-5px);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .cs-svg,
     .cs-shadow,
@@ -657,7 +762,8 @@
     .cs-header-text::after,
     .cs-bubble,
     .cs-thought-dot,
-    .cs-pupil {
+    .cs-pupil,
+    .cs-prompt {
       animation: none !important;
       transition: none !important;
     }
