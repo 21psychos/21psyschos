@@ -1,12 +1,12 @@
 type Theme = "light" | "red" | "prowel" | "green" | "beige";
 
 class ThemeStore {
-  theme = $state<Theme>("light");
+  theme = $state<Theme>("prowel");
 
   constructor() {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("theme") as Theme | null;
-      this.theme = stored || "light";
+      this.theme = stored || "prowel";
       this.applyTheme();
     }
   }
